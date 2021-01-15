@@ -14,8 +14,16 @@ jobs:
           python-version: 3.8
       - name: install packages
         run: pip3 install databricks-cli
+      - name: setenv
+        env: 
+          DATABRICKS_HOST: https://adb-7218565773082452.12.azuredatabricks.net
+          DATABRICKS_TOKEN: dapie4dd601a060d8640878b2fc1a2799085
+      - name: run dbcli
+        run: python3 databricks workspace ls
+        
       - name: find configFile
         run: ls -R
       - name: check 2
         run: ls -aR ~
+        
 
