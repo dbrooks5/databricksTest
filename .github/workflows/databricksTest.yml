@@ -6,7 +6,7 @@ on:
 env:
   workspaceUrl: https://adb-7218565773082452.12.azuredatabricks.net
   srcFolder: "./Shared"
-  tgtFolder: "/TempShared"
+  tgtFolder: "/tempShared"
  
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
           echo ${{secrets.dbToken}} > dbToken
           databricks configure --host ${{env.workspaceUrl}} --token-file dbToken --profile GHA
       #copy files from the shared folder in the repo to the shared folder in databricks
-      - name: copy files from repo into databricks
+      - name: copy files from repo ${{env.srcFolder}} folder into databricks ${{env.tgtFolder}} folder
         run: databricks workspace import_dir -o --profile GHA ${{env.srcFolder}} ${{env.tgtFolder}}
       #verify files copied successfully
       - name: view files in workspace
