@@ -24,7 +24,7 @@ jobs:
           databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken --profile GHA
       
       - name: view files in workspace
-        run: databricks workspace ls -l
+        run: databricks workspace ls -l --profile GHA
       
       - name: copy files from repo into databricks
         #run: databricks workspace import_dir -o --profile GHA 
