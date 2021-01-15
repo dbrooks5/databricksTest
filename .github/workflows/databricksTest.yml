@@ -23,6 +23,9 @@ jobs:
       - name: check 2
         run: ls -aR ~
       - name: run dbcli
-        run: databricks configure --token https://adb-7218565773082452.12.azuredatabricks.net dapie4dd601a060d8640878b2fc1a2799085
+        run: |
+          echo dapie4dd601a060d8640878b2fc1a2799085 > dbToken
+          databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken
+          databricks workspace ls
         
 
