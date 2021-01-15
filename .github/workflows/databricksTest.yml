@@ -20,12 +20,10 @@ jobs:
       
       - name: run dbcli
         run: |
-          echo dapie4dd601a060d8640878b2fc1a2799085 > dbToken
+          echo ${{secrets.dbToken}} > dbToken
           databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken
           databricks workspace ls
         
       - name: find configFile
-        run: ls -R
-      - name: check 2
-        run: ls -aR ~
+        run: cat .databrickscfg
       
