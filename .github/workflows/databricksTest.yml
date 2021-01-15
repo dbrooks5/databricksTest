@@ -3,6 +3,11 @@ name: databricksTest
 on:
   workflow_dispatch:
 
+env:
+  workspaceUrl: https://adb-7218565773082452.12.azuredatabricks.net
+  srcFolder: "./Shared"
+  tgtFolder: "/TempShared"
+ 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,10 +25,10 @@ jobs:
       - name: configure databricks CLI
         run: |
           echo ${{secrets.dbToken}} > dbToken
-          databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken --profile GHA
+          databricks configure --host ${{env.workspaceUrl}} --token-file dbToken --profile GHA
       #copy files from the shared folder in the repo to the shared folder in databricks
       - name: copy files from repo into databricks
-        run: databricks workspace import_dir -o --profile GHA ./Shared /Shared
+        run: databricks workspace import_dir -o --profile GHA ${{env.srcFolder}} ${{env.tgtFolder}}
       #verify files copied successfully
       - name: view files in workspace
         run: databricks workspace ls /Shared -l --profile GHA
