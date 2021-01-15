@@ -18,14 +18,12 @@ jobs:
         #  DATABRICKS_HOST: https://adb-7218565773082452.12.azuredatabricks.net
         #  DATABRICKS_TOKEN: dapie4dd601a060d8640878b2fc1a2799085
       
-      - name: run dbcli
+      - name: configure databricks CLI
         run: |
           echo ${{secrets.dbToken}} > dbToken
           databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken
-          databricks workspace ls
-        
-      - name: test
-        run: ls ~
-      - name: find configFile
-        run: cat ~/.databrickscfg
+      
+      - name: view files in workspace
+        run: databricks worspace ls -l
+      
       
