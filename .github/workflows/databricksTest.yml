@@ -23,6 +23,6 @@ jobs:
       - name: check 2
         run: ls -aR ~
       - name: run dbcli
-        run: databricks workspace ls
+        run: databricks configure --token
         
 
