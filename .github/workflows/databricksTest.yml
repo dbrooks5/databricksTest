@@ -8,27 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      #Specify python version
       - name: Setup Python
         uses: actions/setup-python@v2.2.0
         with:
           python-version: 3.8
-      - name: install packages
+      #install databricks cli
+      - name: install required python packages
         run: pip3 install databricks-cli
-        #env: 
-        #  DATABRICKS_HOST: https://adb-7218565773082452.12.azuredatabricks.net
-        #  DATABRICKS_TOKEN: dapie4dd601a060d8640878b2fc1a2799085
-      
+      #configure the CLI with the url and token
       - name: configure databricks CLI
         run: |
           echo ${{secrets.dbToken}} > dbToken
           databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken --profile GHA
-      
-      - name: view files in workspace
-        run: databricks workspace ls -l --profile GHA
-      
+      #copy files from the shared folder in the repo to the shared folder in databricks
       - name: copy files from repo into databricks
         run: databricks workspace import_dir -o --profile GHA ./Shared /Shared
-      
+      #verify files copied successfully
       - name: view files in workspace
         run: databricks workspace ls /Shared -l --profile GHA
       
