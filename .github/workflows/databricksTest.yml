@@ -1,0 +1,21 @@
+name: databricksTest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.0
+        with:
+          python-version: 3.8
+      - name: install packages
+        run: pip3 install databricks-cli
+      - name: find configFile
+        run: ls -R
+      - name: check 2
+        run: ls -R ~
+
