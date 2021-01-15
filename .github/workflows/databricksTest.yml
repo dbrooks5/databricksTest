@@ -24,6 +24,8 @@ jobs:
           databricks configure --host https://adb-7218565773082452.12.azuredatabricks.net --token-file dbToken
           databricks workspace ls
         
+      - name: test
+        run: ls ~
       - name: find configFile
-        run: cat .databrickscfg
+        run: cat ~/.databrickscfg
       
